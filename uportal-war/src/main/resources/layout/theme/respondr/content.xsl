@@ -300,6 +300,10 @@
       <xsl:variable name="hasFavorites">
         <xsl:if test="//content/@hasFavorites = 'true'">true</xsl:if>
       </xsl:variable>
+      <xsl:variable name="isInFavorites">
+        <xsl:variable name="curFname" select="@fname" />
+        <xsl:if test="/layout/favorites/favorite[@fname = $curFname]">true</xsl:if>
+      </xsl:variable>
 
       <!-- Help Icon -->
       <xsl:if test="$hasHelp='true'">
@@ -479,7 +483,7 @@
       <!-- Favorites -->
       <xsl:if test="$hasFavorites='true'">
           <xsl:choose>
-          <xsl:when test="//focused[@in-user-layout='no'] and upGroup:isChannelDeepMemberOf(//focused/channel/@fname, 'local.1')"> <!-- Add to favorite. -->
+          <xsl:when test="$isInFavorites!='true'"><!-- Add to favorite. -->
             <li>
     	        <a href="javascript:;" title="{upMsg:getMessage('add.this.portlet.to.my.favorite', $USER_LANG)}" class="addToFavoriteLink{//focused/channel/@chanID}">
     	            <xsl:if test="$USE_PORTLET_CONTROL_ICONS='true'">
