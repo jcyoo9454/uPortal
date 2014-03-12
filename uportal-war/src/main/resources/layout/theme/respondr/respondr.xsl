@@ -584,6 +584,11 @@
         </body>
       <script type="text/javascript">
         up.jQuery(document).ready(function(){
+        
+          if(window.location.search.indexOf('redirectToDefault=true') > 0) {
+            up.jQuery('#up-notification').noty({text: '<xsl:value-of select="upMsg:getMessage('error.redirectinfo', $USER_LANG)"/>', type: 'information'});
+          }
+          
           <xsl:if test="$IS_FRAGMENT_ADMIN_MODE='true'">
           up.FragmentPermissionsManager(
             "body",
